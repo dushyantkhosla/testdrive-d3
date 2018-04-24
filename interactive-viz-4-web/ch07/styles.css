@@ -1,0 +1,7 @@
+h1 {
+    font-family: Arial;
+    font-weight: 200;
+    border-bottom: 4px solid red;
+    padding-bottom: 4px;
+    text-align: center;
+}

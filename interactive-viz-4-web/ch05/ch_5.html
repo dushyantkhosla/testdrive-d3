@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Template</title>
+    <link rel="stylesheet" type="text/css" href="css/">
+    <script type="text/javascript" src="js/d3.js"></script>
+    
+    
+</head>
+<body>
+    <script type="text/javascript">
+        var dataset = [1, 12, 39, 24, 45]
+        
+        d3.select("body").selectAll("p")
+        .data(dataset)
+        .enter()
+        .append("p")
+        .text(function(e){
+            return "Value for this p: " + e;
+        })
+        .style("color", function(d){
+            if (d > 25) {
+                return "green";
+            } else {
+                return "blue";
+            }
+        });
+        
+    </script>    
+</body>
+</html>

@@ -1,0 +1,23 @@
+body {
+    font-family: "Helvetica";
+    font-weight: 200;
+}
+
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px; /* We'll override height later */
+    margin-right: 2px;
+    background-color: teal;
+}
+
+.barBox {
+    height: 110px; 
+    width: 220px;
+    padding: 25px;
+}
+
+.svgBar {
+    width: 20px;
+    background-color: teal;
+}

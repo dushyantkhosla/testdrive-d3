@@ -9,17 +9,18 @@
 		</style>
 	</head>
 	<body>
-	
+
 		<p id="add">Add a new data value</p>
 		<p id="remove">Remove a data value</p>
-			
+
 		<script type="text/javascript">
 
-			//Width and height
+			//Width and height of the SVG
 			var w = 600;
 			var h = 250;
-			
-			var dataset = [ { key: 0, value: 5 },		//dataset is now an array of objects.
+
+			var dataset = [
+							{ key: 0, value: 5 },		//dataset is now an array of objects.
 							{ key: 1, value: 10 },		//Each object has a 'key' and a 'value'.
 							{ key: 2, value: 13 },
 							{ key: 3, value: 19 },
@@ -38,22 +39,30 @@
 							{ key: 16, value: 16 },
 							{ key: 17, value: 18 },
 							{ key: 18, value: 23 },
-							{ key: 19, value: 25 } ];
-			
+							{ key: 19, value: 25 }
+						];
+
+			// Set up the scale for x-values
+			// .scaleBand() is used for ordinal data,
+			// but we use it since we have equal-width evenly spaced bars
+			// bar-charts or histograms both use this
 			var xScale = d3.scaleBand()
 							.domain(d3.range(dataset.length))
-							.rangeRound([0, w])
-							.paddingInner(0.05);
-			
+							.rangeRound([0, w]) // helps avoid fuzzy edges because we have padding
+							.paddingInner(0.05); // to separate bars
+
+			// Set up the scale for y-values
+			// Here we use .scaleLinear because we want
+			// input values to scale to output pixels
 			var yScale = d3.scaleLinear()
 							.domain([0, d3.max(dataset, function(d) { return d.value; })])
 							.range([0, h]);
-			
+
 			//Define key function, to be used when binding data
 			var key = function(d) {
 				return d.key;
 			};
-			
+
 			//Create SVG element
 			var svg = d3.select("body")
 						.append("svg")
@@ -62,7 +71,7 @@
 
 			//Create bars
 			svg.selectAll("rect")
-			   .data(dataset, key)
+			   .data(dataset, key) // because dataset is not a simple array
 			   .enter()
 			   .append("rect")
 			   .attr("x", function(d, i) {
@@ -71,7 +80,7 @@
 			   .attr("y", function(d) {
 			   		return h - yScale(d.value);
 			   })
-			   .attr("width", xScale.bandwidth())
+			   .attr("width", xScale.bandwidth()) // scale does the math for us
 			   .attr("height", function(d) {
 			   		return yScale(d.value);
 			   })
@@ -101,13 +110,13 @@
 
 
 
-			//On click, update with new data			
+			//On click, update with new data
 			d3.selectAll("p")
 				.on("click", function() {
 
 					//See which p was clicked
 					var paragraphID = d3.select(this).attr("id");
-					
+
 					//Decide what to do next
 					if (paragraphID == "add") {
 						//Add a data value
@@ -123,7 +132,7 @@
 						//Remove a value
 						dataset.shift();	//Remove one value from dataset
 					}
-					
+
 					//Update scale domains
 					xScale.domain(d3.range(dataset.length));
 					yScale.domain([0, d3.max(dataset, function(d) { return d.value; })]);
@@ -131,7 +140,7 @@
 					//Select…
 					var bars = svg.selectAll("rect")
 						.data(dataset, key);
-					
+
 					//Enter…
 					bars.enter()
 						.append("rect")
@@ -170,7 +179,7 @@
 
 
 					//Update all labels
-	
+
 					//Select…
 					var labels = svg.selectAll("text")
 						.data(dataset, key);
@@ -181,7 +190,7 @@
   						.duration(500)
   						.attr("x", -xScale.bandwidth())
   						.remove();
-					
+
 					//Enter…
 					labels.enter()
 						.append("text")
@@ -192,7 +201,7 @@
 						.attr("x", w)
 						.attr("y", function(d) {
 							return h - yScale(d.value) + 14;
-						})						
+						})
 					   .attr("font-family", "sans-serif")
 					   .attr("font-size", "11px")
 					   .attr("fill", "white")
@@ -205,7 +214,7 @@
 
 				});
 
-			
+
 		</script>
 	</body>
 </html>

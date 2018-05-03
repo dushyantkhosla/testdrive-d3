@@ -229,3 +229,12 @@ var g = svg.append("g")
 // Use margins for decorative elements, such as axes. 
 ```
 
+
+
+# Generate Random Numbers in JS
+
+```javascript
+// Create an array of 50 random numbers under 100
+var arrRandom = d3.range(50).map(x => Math.floor(Math.random() * 100))
+```
+

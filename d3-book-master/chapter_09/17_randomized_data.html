@@ -5,22 +5,32 @@
 		<title>D3: Transitioning to randomized data values</title>
 		<script type="text/javascript" src="../d3.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */		
+			p {
+				background: #afeeee;
+				width: 200px;
+				margin-left: 200px;
+				margin-bottom: 50px;
+				padding: 20px;
+				text-align: center;
+				font-family: "Arial";
+				font-weight: 200;
+				border-bottom: medium solid;
+			}
 		</style>
 	</head>
 	<body>
-	
-		<p>Click on this text to update the chart with new data values as many times as you like!</p>
-			
+
+		<p>Click here to update the chart with new data values as many times as you like!</p>
+
 		<script type="text/javascript">
 
 			//Width and height
 			var w = 600;
 			var h = 250;
-			
+
 			var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
 							11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
-			
+
 			var xScale = d3.scaleBand()
 							.domain(d3.range(dataset.length))
 							.rangeRound([0, w])
@@ -29,7 +39,7 @@
 			var yScale = d3.scaleLinear()
 							.domain([0, d3.max(dataset)])
 							.range([0, h]);
-			
+
 			//Create SVG element
 			var svg = d3.select("body")
 						.append("svg")
@@ -77,7 +87,7 @@
 
 
 
-			//On click, update with new data			
+			//On click, update with new data
 			d3.select("p")
 				.on("click", function() {
 
@@ -124,10 +134,10 @@
 					   .attr("y", function(d) {
 					   		return h - yScale(d) + 14;
 					   });
-					   				
+
 				});
 
-			
+
 		</script>
 	</body>
 </html>
